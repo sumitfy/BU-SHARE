@@ -214,16 +214,16 @@ app.get('/details/:id',isAuthenticated, async(req,res)=>{
   const senddata = await create_accountM.findOne({_id:id});
   res.render("yours_details",{senddata:senddata});
 })
-app.post('/Update-pass/:email' ,isAuthenticated, async(req,res)=>{
-  const email = req.params.email;
-  const pass = req.body.password;
-  console.log(email , pass);
+app.post('/Update-pass/:uemail', async(req,res)=>{
   try {
-    const findcoll = await create_accountM.findOne({ email: email });
+    const uemail = req.params.uemail;
+    const pass = req.body.password;
+    console.log(uemail , pass);
+    const findcoll = await create_accountM.findOne({ email: uemail });
 
     if (findcoll) {
       const updateProfile = await create_accountM.findOneAndUpdate(
-        { email: email },
+        { email: uemail },
         { $set: { password: pass } },
         { new: true }
       );
