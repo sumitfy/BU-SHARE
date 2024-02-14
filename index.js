@@ -14,9 +14,9 @@ const { Strategy: GoogleStrategy } = require('passport-google-oauth20');
 // const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const expressHandlebars = require("express-handlebars");
 
-const create_accountM = require("./models/create_account.js")
-const ticketM  = require("./models/ticket.js")
-const tokenM = require("./models/resetToken.js")
+const create_accountM = require("./src/models/create_account.js")
+const ticketM  = require("./src/models/ticket.js")
+const tokenM = require("./src/models/resetToken.js")
 const app = express();
 const hbs = require('hbs')
 app.use(
@@ -673,7 +673,7 @@ async function sendEmail(to, subject, text) {
 
   await transporter.sendMail(mailOptions);
 }
-const authRoutes = require('./routes/auth');
+const authRoutes = require('./src/routes/auth.js');
 const { log, Console } = require("console");
 app.use('/auth', authRoutes);
 
