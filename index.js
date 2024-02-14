@@ -214,7 +214,7 @@ app.get('/details/:id',isAuthenticated, async(req,res)=>{
   const senddata = await create_accountM.findOne({_id:id});
   res.render("yours_details",{senddata:senddata});
 })
-app.post('/update-pass/:email' ,isAuthenticated, async(req,res)=>{
+app.post('/Update-pass/:email' ,isAuthenticated, async(req,res)=>{
   const email = req.params.email;
   const pass = req.body.password;
   console.log(email , pass);
