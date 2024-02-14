@@ -95,7 +95,7 @@ passport.use(new GoogleStrategy({
   clientID: '395993618083-42u2um79vgao52vecnrbeb1p5qlbb9j0.apps.googleusercontent.com',
   clientSecret: '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',
   // clientSecret: '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',
-  callbackURL: 'http://localhost:8000/auth/google/callback',
+  callbackURL: 'https://bu-share.onrender.com/auth/google/callback',
 }, async(accessToken, refreshToken, profile, done) => {
   try {
     const existingUser = await create_accountM.findOne({ email: profile.emails[0].value })
