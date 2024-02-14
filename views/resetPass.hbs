@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+    <link rel="shortcut icon" href="/static/images/favicon-BU.png" type="image/x-icon">
+    <title>BU-Share</title>
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      background-color: #111827;
+    }
+
+    .parent-container {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .left {
+      padding: 20px;
+      min-width: 40%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 50%;
+
+    }
+
+    .right {
+      flex: 50%;
+    }
+
+    @media(min-width:880px) {
+      .right {
+        margin: 3rem;
+      }
+    }
+
+    @media (max-width:880px) {
+      .parent-container {
+        display: grid;
+        grid-template-rows: 2fr, 8fr;
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+      <div class="parent-container">
+
+    <div class="left">
+      {{!-- <img src="/static/images/undraw_travel_together_re_kjf2.svg" alt="taxi"> --}}
+      <div>
+        <img id="img1" class="w-auto h-30 mr-2" src="/static/images/logo.jpg" alt="logo">
+      </div>
+    </div>
+    <div class="right pb-4">
+      <section class="bg-black-50 ">
+        <div class="flex flex-col items-center justify-center px-6 py-0 mx-auto md:h-screen lg:py-0">
+          <div
+            class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <div style="display: flex; justify-content:center">
+                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                  Create New Password
+                </h1>
+              </div>
+              <form id="updatepassconf" class="space-y-4 md:space-y-6" action="/Update-pass/{{userEmail}}" method="post">
+                {{!-- <div>
+                  <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                    Name</label>
+                  <input type="name" name="name" id="name"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Enter Name" required="true">
+                </div> --}}
+                <div>
+                  <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                    email</label>
+                  <label id="email" name="email"
+                    class=" text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:text-white"
+                    placeholder="name@company.com" required="true">{{userEmail}}</label>
+                </div>
+                <div>
+                  <label for="password"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                  <input type="password" name="password" id="password" placeholder="••••••••"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required="true">
+                </div>
+                <div>
+                  <label for="confirm-password"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
+                  <input type="confirm-password" name="confirm-password" id="confirm-password" placeholder="••••••••"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required="true">
+                </div>
+                <div class="flex items-start">
+                  <div class="flex items-center h-5">
+                    <input id="terms" aria-describedby="terms" type="checkbox" onclick="showHidePassword()"
+                      class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"/>
+                  </div>
+                  <div class="ml-3 text-sm">
+                    <label for="terms" class="font-light text-gray-500 dark:text-gray-300">Show Password</label>
+                  </div>
+                </div>
+                <div class="flex justify-center pt-8"> 
+                    <button type="button" style="border: 1px solid rgb(136, 136, 136); display: flex; justify-content:center ; align-items:center" onclick="validatepass()"
+                        class="w-3/4 text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">Update</button>
+                </div>
+                <div class="flex justify-center">
+                  <button type="button" onclick="gotologin()" style="border: 1px solid rgb(136, 136, 136)"
+                  class=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login ?</button>
+                </div> 
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div id="popup-modal" tabindex="-1"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="p-4 md:p-5 text-center">
+          <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          <h3 class="mb-5 text-lg font-normal text-white dark:text-white">Your Password and Confirm Password do not
+            match !!!
+          </h3>
+          <a type="button" onclick="closeModel()" data-modal-hide="popup-modal"
+            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+            OK
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="pass-compulsory" tabindex="-1"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="p-4 md:p-5 text-center">
+          <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          <h3 class="mb-5 text-lg font-normal text-white dark:text-white">Enter your Password !!!
+          </h3>
+          <a type="button" onclick="closeModel()" data-modal-hide="popup-modal"
+            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+            OK
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="updateconf" tabindex="-1"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button onclick="closeModel()" type="button"
+                    class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="popup-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="p-4 md:p-5 text-center">
+                    <div style="display: flex; justify-content:center; margin-bottom:1.5rem">
+                        <dotlottie-player src="https://lottie.host/2b4e6046-c38a-471e-b175-918df34f0a50/DPoPpxplDR.json" background="transparent" speed="1" style="width: 100px; height: 100px;" loop autoplay></dotlottie-player>
+                    </div>
+                    <h3 class="mb-5 text-xl font-normal text-white dark:text-white">Password Updated Sucessfully !!!
+                    </h3>
+                    <button id="popup-join-cancel" onclick="gotologin()" data-modal-hide="popup-modal" type="button"
+                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Go to Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="pass-length" tabindex="-1"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="p-4 md:p-5 text-center">
+          <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          <h3 class="mb-5 text-lg font-normal text-white dark:text-white">Password length should be greater than 6 !!!
+          </h3>
+          <a type="button" onclick="closeModel()" data-modal-hide="popup-modal"
+            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+            OK
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function showconformation(){
+        document.getElementById('updateconf').style.display = 'flex';
+    }
+    function validatepass() {
+      var password = document.getElementById("password").value;
+      var confirmPassword = document.getElementById("confirm-password").value;
+      if(password == ""){
+        document.getElementById('pass-compulsory').style.display = 'flex';
+      }
+      if(password.length < 6) {
+        document.getElementById('pass-length').style.display = 'flex';
+        return false; // Prevent form submission
+      }
+      else if (password != confirmPassword) {
+        document.getElementById('popup-modal').style.display = 'flex';
+      }
+      else {
+        showconformation();
+        document.getElementById('updatepassconf').submit();
+      }
+    }
+    function showHidePassword(){
+      var passwordField1 = document.getElementById("password");
+      var passwordField2 = document.getElementById("confirm-password");
+
+        if (passwordField1.type === "password" || passwordField2.type === "password" ) {
+            passwordField1.type = "text";
+            passwordField2.type ="text" 
+        } else {
+            passwordField1.type = "password";
+            passwordField2.type = "password";
+        }
+    }
+    function gotologin(){
+        window.location.href='/login';
+    }
+    function closeModel() {
+      document.getElementById('popup-modal').style.display = 'none';
+      document.getElementById('pass-length').style.display = 'none';
+      document.getElementById('pass-compulsory').style.display = 'none';
+      document.getElementById('updateconf').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="shortcut icon" href="/static/images/favicon-BU.png" type="image/x-icon">
+  <title>BU-Share</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      background-color: #111827;
+    }
+  </style>
+</head>
+
+<body>
+  {{>navbar}}
+
+  <section class=" dark:bg-gray-900">
+      <div class="isolate px-6 py-24 sm:py-32 lg:px-8">
+        <div id="ticket" class="mx-auto max-w-2xl text-center">
+          <h2 class=" text-5xl font-light tracking-tight text-white sm:text-5xl">Find Rides</h2>
+        </div>
+
+        <form id="form" action="/findform/{{senddata._id}}" method="POST"
+          class=" bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-auto mt-16 max-w-xl sm:mt-20">
+          <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+            <div class="mt-2.5">
+              <div class="sm:col-span-2">
+                <label for="date" class="block mb-2 text-sm font-semilight  text-white">Date</label>
+                <input type="date"  id="date" name="date" min=""
+                  class="block w-full rounded-md border-0 px-3.5 py-2 pl-20 bg-gray-600 text-white shadow-sm ring-2  ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" required="true">
+              </div>
+            </div>
+            <div class="mt-2.5">
+              <label for="time" class="block mb-2 text-sm font-semilight  text-white">Time</label>
+              <input type="time" id="time-input" name="time"
+                class="block w-full rounded-md border-0 px-3.5 py-2 pl-20 bg-gray-600 text-white shadow-sm ring-2  ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                step="60" required="true">
+            </div>
+            <div class="sm:col-span-2">
+              <label for="starting" class="block text-sm font-semilight leading-6  text-white">Starting Point</label>
+              <div class="mt-2.5">
+                <input type="text" name="starting" id="starting" autocomplete="organization"
+                  class="block w-full rounded-md border-0 px-3.5 py-2 bg-gray-600 text-white shadow-sm ring-2  ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"  required="true">
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <label for="destination" class="block text-sm font-semilight leading-6  text-white">Destination</label>
+              <div class="mt-2.5">
+                <input type="text" name="destination" id="destination" autocomplete="organization"
+                  class="block w-full rounded-md border-0 px-3.5 py-2 bg-gray-600 text-white shadow-sm ring-2  ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"  required="true">
+              </div>
+            </div>
+          </div>
+          <div class="mt-10">
+            <button id="find" type="button" unique-id="{{senddata._id}}" onclick="validatefindform()"
+              class="block w-full rounded-md bg-blue-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Find</button>
+          </div>
+        </form>
+      </div>
+    </section>
+    <div id="field-compulsory" tabindex="-1"
+      class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div class="relative p-4 w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <div class="p-4 md:p-5 text-center">
+            <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            <h3 class="mb-5 text-lg font-normal text-white dark:text-white">Some Fields Are Empty !!!
+            </h3>
+            <a type="button" onclick="closeModel()" data-modal-hide="popup-modal"
+              class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+              OK
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{>footer}}
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+</body>
+<script>
+  document.getElementById('date').min = new Date().toISOString().split('T')[0];
+  function validatefindform(){
+    const fordate = document.getElementById('date').value;
+    const formtime = document.getElementById("time-input").value;
+    const formstarting = document.getElementById("starting").value;
+    const formdestination = document.getElementById("destination").value;
+    if(fordate==""||formtime==""||formstarting==""||formdestination=="" ){
+      document.getElementById('field-compulsory').style.display = 'flex';
+    }
+    else{
+      document.getElementById('find').type = "submit";
+      sendonAval();
+    }
+  }
+  function closeModel(){
+    document.getElementById('field-compulsory').style.display = 'none';
+  }
+  function sendonAval(){
+      const userid = document.getElementById('find').getAttribute('unique-id');
+      window.location.href=`/avaltkts/${userid}`
+  }
+</script>
+</html>

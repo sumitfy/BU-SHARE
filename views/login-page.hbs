@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="shortcut icon" href="/static/images/favicon-BU.png" type="image/x-icon">
+    <title>BU-Share</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      background-color: #111827;
+    }
+
+    .parent-container {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .left {
+      padding: 20px;
+      min-width: 40%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 50%;
+      background-color: #111827;
+    }
+
+    .right {
+      flex: 50%;
+      background-color: #111827;
+    }
+
+    @media (max-width:880px) {
+      .parent-container {
+        display: grid;
+        grid-template-rows: 2fr, 8fr;
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="parent-container">
+    <div class="left">
+      {{!-- <img src="/static/images/undraw_travel_together_re_kjf2.svg" alt="taxi"> --}}
+      <div>
+        <img id="img1" class="w-auto h-30 mr-2" src="/static/images/logo.jpg" alt="logo">
+      </div>
+    </div>
+    <div class="right">
+      <section class="bg-black-50 dark:bg-gray-900">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+          {{!-- <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+          </a> --}}
+          <div
+            class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <div style="display: flex; justify-content:center">
+                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                  Login to your Account
+                </h1>
+              </div>
+              <form id="login" class="space-y-4 md:space-y-6" action="/loginform" method="POST">
+                <div>
+                  <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                    email</label>
+                  <input type="email" name="email" id="email"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="name@company.com" required="">
+                </div>
+                <div>
+                  <label for="password"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                  <input type="password" name="password" id="password" placeholder="••••••••"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required="" autocomplete="off">
+                </div>
+                <div class="w-full flex">
+                  <div class="flex items-center h-5">
+                    <input id="terms" aria-describedby="terms" type="checkbox" onclick="showHidePassword()"
+                      class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800">
+                  </div>
+                  <div class="w-full ml-3 text-sm flex justify-between">
+                    <label for="terms" class="font-light text-gray-500 dark:text-gray-300">Show Password</label>
+                    <p
+                      class="text-sm font-light text-gray-500 dark:text-gray-400">
+                      <button onclick="forgotpass()" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot
+                        Password?</button>
+                    </p>
+                  </div>
+                </div>
+                
+                <button type="submit" style="border: 1px solid rgb(136, 136, 136)"
+                  class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login</button>
+                <h1 style="display: flex; justify-content:center"
+                  class="text-sm font-light text-gray-500 dark:text-gray-400">or</h1>
+                <a href="/auth/google" style="display:flex ;justify-content:center; gap: 10px; border: 1px solid rgb(136, 136, 136)"
+                  class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  type="submit"><img class="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg"
+                    loading="lazy" alt="google logo">Login with Google</a>
+                <button onclick=window.location.replace("/")
+                  style="display:flex ;justify-content:center; gap: 10px; border: 1px solid rgb(136, 136, 136)"
+                  class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  type="button">Create Account</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div id="invalidlogin" tabindex="-1"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button onclick="closeModel()" type="button"
+              class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              data-modal-hide="popup-modal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+            <div class="p-4 md:p-5 text-center">
+              <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              <h3 class="mb-5 text-lg font-normal text-white dark:text-white">Either Your Password or Email is wrong !!!
+              </h3>
+              <button type="button" data-modal-hide="popup-modal" onlick="closeModel()" onclick=window.location.replace("/login")
+                class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                Enter again
+              </button>
+              <a href="/" data-modal-hide="popup-modal" type="button"
+                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Create
+                Account</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="forgotpass" tabindex="-1"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button onclick="closeModel()" type="button"
+              class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              data-modal-hide="popup-modal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+            <div class="p-4 md:p-5 text-center">
+              <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              <h3 class="mb-5 text-lg font-normal text-white dark:text-white">Have You Lost your Password?
+              </h3>
+              {{!-- <div class="mb-5">
+                  <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                    email</label>
+                  <input type="email" name="email" id="email"
+                    class="bg-gray-50 border border-gray-700 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="name@company.com" required="true">
+                </div> --}}
+              <button type="button" data-modal-hide="popup-modal" onlick="closeModel()" onclick="window.location.href = '/forgotpass'" 
+                class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                Get New Password
+              </button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      <script>
+        function getQueryParam(name) {
+          const urlParams = new URLSearchParams(window.location.search);
+          return urlParams.get(name);
+        }
+        const islogin = getQueryParam('islogin');
+        // Display an alert if a message is present
+        if (islogin == "0") {
+          document.getElementById('invalidlogin').style.display = 'flex';
+        }
+        function logincheck() {
+          document.getElementById('invalidlogin').style.display = 'flex';
+        }
+        function closeModel() {
+          document.getElementById('invalidlogin').style.display = 'none';
+          document.getElementById('forgotpass').style.display = 'none';
+          
+        }
+        function forgotpass(){
+          document.getElementById('forgotpass').style.display = 'flex';
+        }
+        function showHidePassword(){
+          var passwordField = document.getElementById("password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+
+      </script>
+</body>
+
+</html>

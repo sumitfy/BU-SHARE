@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <link rel="shortcut icon" href="/static/images/favicon-BU.png" type="image/x-icon">
+    <title>BU-Share</title>
+    <style>
+        @media (max-width:640px) {
+            .tickets {
+                max-width: 93%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {{>navbar}}
+    <div id="ticket" class="mx-auto max-w-2xl text-center" style="padding-top:2rem;">
+        <h1 class="text-5xl font-light tracking-tight text-white sm:text-5xl ">{{message}}</h1>
+    </div>
+    <section class="text-gray-400 bg-gray-900 body-font">
+        <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-wrap -mx-4 -my-8 justify-center items-center gap-4">
+                {{#each tickets}}
+                <div style="transition:all ease 0.2s"
+                    class="tickets py-8 px-4 lg:w-1/3 dark:border rounded-lg dark:border-indigo-400 hover:scale-105">
+                    <div class="h-full grid items-start">
+                        <div style="border-radius: 10px; margin-bottom:1.5rem" class="flex ; bg-gray-600 ; p-0  ; mb-3;">
+                            <div class="justify-center ; align-middle ; pl-6 ">
+                                    <span class="text-gray-200  border-r-2 border-gray-700 pr-5">Date</span>
+                                <span class="font-medium text-lg leading-none text-gray-300 title-font m-4">{{sliceDate
+                                    date}}</span>
+                            </div>
+                        </div>
+
+                        <div class="flex-grow pl-6">
+                            <h2 class="tracking-widest text-xs title-font font-medium text-indigo-400 mb-1">{{category}}
+                            </h2>
+                            <h1 class="title-font text-xl font-medium text-white mb-3">{{startingPoint}} to
+                                {{destination}}</h1>
+                            <div class="inline-flex items-center py-4">
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a9 9 0 0 0 5-1.5 4 4 0 0 0-4-3.5h-2a4 4 0 0 0-4 3.5 9 9 0 0 0 5 1.5Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                </svg>
+                                <span class="flex-grow flex flex-col pl-3">
+                                    <h1 class="title-font font-medium text-white border-b-2 py-1">Sharer : {{firstname}}
+                                        </h1>
+                                </span>
+                            </div>
+                            <p class="leading-relaxed mb-5">Time:&nbsp;&nbsp;{{time}} <br>
+                                EnrollmentNo:&nbsp;&nbsp;{{EnrollmentNo}} <br> MeetingPoint:&nbsp;&nbsp;{{meetingPoint}}
+                            </p>
+                            <div style="display: flex; gap:4rem">
+                                <p class="text-white font-medium rounded-lg text-lg  py-2.5 mb-4">Vacant seats :
+                                    {{vacantSeats}}</p>
+                                <p class="text-white font-medium rounded-lg text-lg  py-2.5 mb-4">Occupied Seats:
+                                    {{mypassengers.length}}</p>
+                            </div>
+                            
+                            <div id="accordion-close" data-accordion="open">
+                                <h2 id="accordion-open-heading-2">
+                                    <button type="button"
+                                        class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border  border-gray-200 rounded-xl   dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                                        data-accordion-target="#accordion{{_id}}" aria-expanded="false"
+                                        aria-controls="">
+                                        <span class="flex items-center gap-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                                            </svg>{{mypassengers.length}} &nbsp;&nbsp; Companion</span>
+                                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M9 5 5 1 1 5" />
+                                        </svg>
+                                    </button>
+
+                                </h2>
+                                {{!-- <div id="companion" style="display: none;"> --}}
+                                    <div id="accordion{{_id}}" class="hidden">
+                                        {{#each mypassengers}}
+                                        <div style=""
+                                            class="p-5 border rounded-xl border-gray-800 dark:border-gray-700 dark:bg-gray-700 ">
+                                            <span class=" text-white dark:text-white flex gap-4"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                                </svg>{{passname}} {{passemail}}</span>
+                                            {{!-- <p class="text-white dark:text-white"></p> --}}
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                    {{!--
+                                </div> --}}
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="join-or-full" style="display:flex ;  justify-content:center ; padding-top:3rem" data-join-btn="{{vacantSeats}}" onload="displayfull()">
+                        <div class="join-btn" style="display:flex">
+                            <button onclick="askjoin('{{_id}}')" type="button"
+                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                Join
+                                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                </svg>
+                            </button>
+
+                        </div>
+                        <div style="display:none" class="full">
+                            <p style="border:1px solid blue"
+                                class="text-white  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                                Full</p>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+    <section>
+        <div id="ticket" class="mx-auto max-w-2xl text-center" style="padding-top:2rem;">
+            <h1 class="text-5xl font-light tracking-tight text-white sm:text-5xl ">{{secondmessage}}</h1>
+        </div>
+        <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-wrap -mx-4 -my-8 justify-center items-center gap-4">
+                {{#each matchedticketswithoutdates}}
+                <div style="transition:all ease 0.2s"
+                    class="tickets py-8 px-4 lg:w-1/3 dark:border rounded-lg dark:border-gray-200 hover:scale-105">
+                    <div class="h-full grid items-start">
+                        <div style="border-radius: 10px; margin-bottom:1.5rem" class="flex ; bg-gray-600 ; p-0  ; mb-3;">
+                            <div class="justify-center ; align-middle ; pl-6 ">
+                                    <span class="text-gray-200  border-r-2 border-gray-700 pr-5">Date</span>
+                                <span class="font-medium text-lg leading-none text-gray-300 title-font m-4">{{sliceDate
+                                    date}}</span>
+                            </div>
+                        </div>
+
+                        <div class="flex-grow pl-6">
+                            <h2 class="tracking-widest text-xs title-font font-medium text-indigo-400 mb-1">{{category}}
+                            </h2>
+                            <div class="inline-flex items-center py-4">
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a9 9 0 0 0 5-1.5 4 4 0 0 0-4-3.5h-2a4 4 0 0 0-4 3.5 9 9 0 0 0 5 1.5Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                </svg>
+                                <span class="flex-grow flex flex-col pl-3">
+                                    <h1 class="title-font font-medium text-white border-b-2 py-1">Sharer : {{firstname}}
+                                        </h1>
+                                </span>
+                            </div>
+                            <h1 class="title-font text-xl font-medium text-white mb-3">{{startingPoint}} to {{destination}}</h1>
+                            <p class="leading-relaxed mb-5 text-white ">Time:&nbsp;&nbsp;{{time}} <br>
+                                EnrollmentNo:&nbsp;&nbsp;{{EnrollmentNo}} <br> MeetingPoint:&nbsp;&nbsp;{{meetingPoint}}</p>
+                            <div style="display: flex; gap:4rem">
+                                <p class="text-white font-medium rounded-lg text-sm  py-2.5 mb-4">Vacant seats : {{vacantSeats}}
+                                </p>
+                                <p class="text-white font-medium rounded-lg text-sm  py-2.5 mb-4">Occupied Seats:
+                                    {{mypassengers.length}}</p>
+                            </div>
+                            
+                            <div id="accordion-close" data-accordion="open">
+                                <h2 id="accordion-open-heading-2">
+                                    <button type="button"
+                                        class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border  border-gray-200 rounded-xl   dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                                        data-accordion-target="#accordion{{_id}}" aria-expanded="false"
+                                        aria-controls="accordion{{_id}}">
+                                        <span class="flex items-center gap-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                                            </svg>{{mypassengers.length}} &nbsp;&nbsp; Companion</span>
+                                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M9 5 5 1 1 5" />
+                                        </svg>
+                                    </button>
+
+                                </h2>
+                                {{!-- <div id="companion" style="display: none;"> --}}
+                                    <div id="accordion{{_id}}" class="hidden">
+                                        {{#each mypassengers}}
+                                        <div style=""
+                                            class="p-5 border rounded-xl border-gray-800 dark:border-gray-700 dark:bg-gray-700 ">
+                                            <span class=" text-white dark:text-white flex gap-4"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                                </svg>{{passname}} - {{passemail}}</span>
+                                            {{!-- <p class="text-white dark:text-white"></p> --}}
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                    {{!--
+                                </div> --}}
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="join-or-full" style="display:flex ;  justify-content:center ; padding-top:3rem" data-join-btn="{{vacantSeats}}" onload="displayfull()">
+                        <div class="join-btn" style="display:flex">
+                            <button onclick="askjoin('{{_id}}')" type="button"
+                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                Join
+                                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                </svg>
+                            </button>
+
+                        </div>
+                        <div style="display:none" class="full">
+                            <p style="border:1px solid blue"
+                                class="text-white  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                                Full</p>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    {{>footer}}
+    </section>
+
+    <div id="popup-join" tabindex="-1"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button onclick="closeModel()" type="button"
+                    class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="popup-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="p-4 md:p-5 text-center">
+                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+                    </svg>
+
+                    <h3 class="mb-5 text-lg font-normal text-white dark:text-white">Are you sure to join this Ticket?
+                    </h3>
+                    <button id="popup-join-confirm" type="submit" data-modal-hide="popup-modal"
+                        onclick="joinConfirmed()"
+                        class="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                        Yes, I'm sure
+                    </button>
+                    <button id="popup-join-cancel" onclick="closeModel()" data-modal-hide="popup-modal" type="button"
+                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No,
+                        cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="haveTicket" tabindex="-1"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button onclick="closeModel()" type="button"
+                    class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="popup-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="p-4 md:p-5 text-center">
+                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+                    </svg>
+
+                    <h3 class="mb-5 text-lg font-normal text-white dark:text-white">You are already a Passenger in this Ticket !!!
+                    </h3>
+                    <button id="popup-join-confirm" type="submit" data-modal-hide="popup-modal"
+                        onclick="closeModel()"
+                        class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                        OK    
+                    </button>
+                    {{!-- <button id="popup-join-cancel" onclick="closeModel()" data-modal-hide="popup-modal" type="button"
+                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No,
+                        cancel</button> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="generater-of-tkt" tabindex="-1"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button onclick="closeModel()" type="button"
+                    class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="popup-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="p-4 md:p-5 text-center">
+                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+                    </svg>
+
+                    <h3 class="mb-5 text-lg font-normal text-white dark:text-white">You are creater of this ticket !!!
+                    </h3>
+                    <button id="popup-join-confirm" type="submit" data-modal-hide="popup-modal"
+                        onclick="closeModel()"
+                        class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                        OK    
+                    </button>
+                    {{!-- <button id="popup-join-cancel" onclick="closeModel()" data-modal-hide="popup-modal" type="button"
+                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No,
+                        cancel</button> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="joinedconf" tabindex="-1"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                
+                <div class="p-4 md:p-5 text-center">
+                    <div style="display: flex; justify-content:center; margin-bottom:1.5rem">
+                        <dotlottie-player src="https://lottie.host/2b4e6046-c38a-471e-b175-918df34f0a50/DPoPpxplDR.json" background="transparent" speed="1" style="width: 100px; height: 100px;" loop autoplay></dotlottie-player>
+                    </div>
+                    <h3 class="mb-5 text-xl font-normal text-white dark:text-white">Joined Sucessfully !!!
+                    </h3>
+                    <button id="popup-join-cancel" onclick="gotojoined()" data-modal-hide="popup-modal" type="button"
+                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">See Joined Tickets</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var joinOrFullElements = document.querySelectorAll('.join-or-full');
+            joinOrFullElements.forEach(function (element) {
+                displayfull(element);
+            });
+        });
+
+        function displayfull(element) {
+            var vacantSeats = parseInt(element.getAttribute('data-join-btn'));
+
+            if (vacantSeats === 0) {
+                element.querySelector('.join-btn').style.display = 'none';
+                element.querySelector('.full').style.display = 'flex'; // Show the "Full" message
+            } else {
+                element.querySelector('.join-btn').style.display = 'flex'; // Show the "Join" button
+                element.querySelector('.full').style.display = 'none';
+            }
+        }
+        function getQueryParam(name) {
+          const urlParams = new URLSearchParams(window.location.search);
+          return urlParams.get(name);
+        }
+        const haveTicket = getQueryParam('haveTicket');
+        if (haveTicket === '1') {
+          document.getElementById('haveTicket').style.display = 'flex';
+        }
+        //function showRedundantTicketModal(){
+        //    document.getElementById('haveTicket').style.display = 'flex';
+        //}
+        function showconfjoined(){
+            document.getElementById('joinedconf').style.display = 'flex';
+        }
+        function gotojoined(){
+            var currentURL = window.location.href;
+            var userID = currentURL.split('/').pop();
+            var newURL = '/joined/' + userID;
+            window.history.replaceState({}, document.title, newURL);
+            // Redirect to the new URL
+            window.location.href = newURL;
+            closeModel();
+        }
+        function askjoin(ticketid) {
+            console.log(ticketid);
+            document.getElementById('popup-join').style.display = 'flex';
+            document.getElementById('popup-join').setAttribute('data-ticket-id', ticketid);
+        }
+        function toggleCompanionInfo() {
+            var companionInfo = document.getElementById('companion');
+            companionInfo.style.display = (companionInfo.style.display === 'none' || companionInfo.style.display === '') ? 'block' : 'none';
+        }
+        function closeModel() {
+            document.getElementById('popup-modal').style.display = 'none';
+            document.getElementById('popup-join').style.display = 'none';
+            document.getElementById('haveTicket').style.display = 'none';
+            document.getElementById('joinedconf').style.display = 'none';
+        }
+        function joinConfirmed() {
+            // const ticketid = document.getElementById('popup-join').getAttribute('data-ticket-id');
+            // const passengerId = new URLSearchParams(window.location.search).get('id');
+            const passengerId = window.location.pathname.split('/').pop();
+            const ticketid = document.getElementById('popup-join').getAttribute('data-ticket-id');
+            const data = { ticketid, passengerId };
+            console.log("passenger id: " + passengerId)
+            console.log("ticket id: " + ticketid);
+            closeModel();
+            showconfjoined();
+            var responseClone;
+            fetch(`/avalrides/${passengerId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(function (response) {
+                responseClone = response.clone(); // 2
+                return response.json();
+            })
+            .then(function (data) {
+                // Do something with data
+                console.log(data);
+            });
+            //.then((response) => response.json())
+            //.then((data) => {
+                // Handle the response from the server
+            //    console.log(data);
+            //})
+            //.catch(error => {
+            //    console.error('Error:', error);
+            //});
+        }
+    </script>
+</body>
+
+</html>

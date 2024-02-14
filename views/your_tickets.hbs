@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/static/images/favicon-BU.png" type="image/x-icon">
+    <title>BU-Share</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+</head>
+<body>
+    {{>navbar}}
+    <div id="ticket" class="mx-auto max-w-2xl text-center" style="padding-top:2rem;">
+        <h1 class="text-5xl font-semibold tracking-tight text-white sm:text-5xl ">Your Generated Tickets</h1>
+    </div>
+    
+    <section class="text-gray-400 bg-gray-900 body-font">
+        <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-wrap -mx-4 -my-8 justify-center items-center gap-4">
+                {{#each userData.myticketID}}
+                <div id="cards" style="transition:all ease 0.2s"
+                    class="tickets py-8 px-4 lg:w-1/3 dark:border rounded-lg dark:border-gray-400 ">
+                    <div class="h-full grid items-start">
+                        <div style="border-radius: 10px; margin-bottom:1.5rem" class="flex ; bg-gray-600 ; p-0  ; mb-3;">
+                               <div class="justify-center ; align-middle ; pl-6 ">
+                                     <span class="text-gray-200  border-r-2 border-gray-700 pr-5">Date</span>
+                                    <span class="font-medium text-lg leading-none text-gray-300 title-font m-4">{{sliceDate
+                                        this.date}}</span>
+                               </div>
+                            </div>
+                        <div class="flex-grow pl-6">
+                            
+                            <h2 class="tracking-widest text-xs title-font font-medium text-indigo-400 mb-1">{{this.category}}
+                            </h2>
+                            <h1 class="title-font text-xl font-medium text-white mb-3">{{this.startingPoint}} to
+                                {{this.destination}}</h1>
+                            <div class="inline-flex items-center py-4">
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a9 9 0 0 0 5-1.5 4 4 0 0 0-4-3.5h-2a4 4 0 0 0-4 3.5 9 9 0 0 0 5 1.5Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                </svg>
+                                <span class="flex-grow flex flex-col pl-3">
+                                    <h1 class="title-font font-medium text-white border-b-2 py-1">Sharer : {{this.firstname}}
+                                        </h1>
+                                </span>
+                            </div>
+                            <p class="leading-relaxed mb-5">Time:&nbsp;&nbsp;{{this.time}} <br>
+                                EnrollmentNo:&nbsp;&nbsp;{{this.EnrollmentNo}} <br> MeetingPoint:&nbsp;&nbsp;{{this.meetingPoint}}
+                            </p>
+                            <div style="display: flex; gap:4rem">
+                                <p class="text-white font-medium rounded-lg text-lg  py-2.5 mb-4">Vacant seats :
+                                    {{this.vacantSeats}}</p>
+                                <p class="text-white font-medium rounded-lg text-lg  py-2.5 mb-4">Occupied Seats:
+                                    {{this.mypassengers.length}}</p>
+                            </div>
+                            {{!-- <a class="inline-flex items-center">
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a9 9 0 0 0 5-1.5 4 4 0 0 0-4-3.5h-2a4 4 0 0 0-4 3.5 9 9 0 0 0 5 1.5Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                </svg>
+                                <span class="flex-grow flex flex-col pl-3">
+                                    <span class="title-font font-medium text-white">Sharer : {{this.firstname}}
+                                        </span>
+                                </span>
+                            </a> --}}
+                            <div id="accordion-close" data-accordion="open">
+                                <h2 id="accordion-open-heading-2">
+                                    <button type="button"
+                                        class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border  border-gray-200 rounded-xl   dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                                        data-accordion-target="#accordion{{this._id}}" aria-expanded="false"
+                                        aria-controls="">
+                                        <span class="flex items-center gap-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                                            </svg>{{mypassengers.length}} &nbsp;&nbsp; Companion</span>
+                                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M9 5 5 1 1 5" />
+                                        </svg>
+                                    </button>
+
+                                </h2>
+                                    <div id="accordion{{this._id}}" class="hidden">
+                                        {{#each mypassengers}}
+                                        <div style=""
+                                            class="p-5 border rounded-xl border-gray-800 dark:border-gray-700 dark:bg-gray-700 ">
+                                            <span class=" text-white dark:text-white flex gap-4"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                                </svg>{{passname}} - {{passemail}}</span>
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="flex justify-center mt-8">
+                        <button type="button" onclick="showDeleteModel('{{this._id}}')" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z"/>
+                            </svg>Delete
+                        </button>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </section> 
+    
+    <section class="text-gray-400 bg-gray-900 body-font">
+        <div id="ticket" class="mx-auto max-w-2xl text-center" style="padding-top:2rem;">
+            <h1 class="text-5xl font-bold tracking-tight text-white sm:text-5xl ">{{Heading2 }}</h1>
+        </div>
+        <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-wrap -mx-4 -my-8 justify-center items-center gap-4">
+                {{#each exptickets.myticketID}}
+                <div id="cards" style="background:rgba(0,0,0,0.1) transition:all ease 0.2s"
+                    class=" tickets py-8 px-4 lg:w-1/3 dark:border rounded-lg dark:border-gray-700 ">
+                    <div class="h-full grid items-start">
+                        <h1 class="title-font text-xl font-medium text-red-600 mb-3">Expired</h1>
+                        <div style=" border-radius: 10px; margin-bottom:1.5rem" class="flex ; bg-gray-600 ; p-0  ; mb-3;">
+                               <div class= "opacity-35 justify-center ; align-middle ; pl-6 ">
+                                     <span class="text-gray-200  border-r-2 border-gray-700 pr-5">Date</span>
+                                    <span class="font-medium text-lg leading-none text-gray-300 title-font m-4">{{sliceDate
+                                        this.date}}</span>
+                               </div>
+                            </div>
+                        <div class="opacity-35 flex-grow pl-6">
+                            
+                            <h2 class="tracking-widest text-xs title-font font-medium text-indigo-400 mb-1">{{this.category}}
+                            </h2>
+                            <h1 class="title-font text-xl font-medium text-white mb-3">{{this.startingPoint}} to
+                                {{this.destination}}</h1>
+                            {{!-- <p class="leading-relaxed mb-5">Time:&nbsp;&nbsp;{{this.time}} <br>
+                                EnrollmentNo:&nbsp;&nbsp;{{this.EnrollmentNo}} <br> MeetingPoint:&nbsp;&nbsp;{{this.meetingPoint}}
+                            </p>
+                            <div style="display: flex; gap:4rem">
+                                <p class="text-white font-medium rounded-lg text-lg  py-2.5 mb-4">Vacant seats :
+                                    {{this.vacantSeats}}</p>
+                                <p class="text-white font-medium rounded-lg text-lg  py-2.5 mb-4">Occupied Seats:
+                                    {{this.mypassengers.length}}</p>
+                            </div> --}}
+                            {{!-- <a class="inline-flex items-center">
+                                <img alt="blog" src="https://dummyimage.com/103x103"
+                                    class="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center">
+                                <span class="flex-grow flex flex-col pl-3">
+                                    <span class="title-font font-medium text-white">Sharer : {{this.firstname}}
+                                        {{this.lastname}}</span>
+                                </span>
+                            </a> --}}
+                            <div id="accordion-close" data-accordion="open">
+                                <h2 id="accordion-open-heading-2">
+                                    <button type="button"
+                                        class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border  border-gray-200 rounded-xl   dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                                        data-accordion-target="#accordion{{this._id}}" aria-expanded="false"
+                                        aria-controls="">
+                                        <span class="flex items-center gap-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                                            </svg>{{mypassengers.length}} &nbsp;&nbsp; Companion</span>
+                                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M9 5 5 1 1 5" />
+                                        </svg>
+                                    </button>
+
+                                </h2>
+                                    <div id="accordion{{this._id}}" class="hidden">
+                                        {{#each mypassengers}}
+                                        <div style=""
+                                            class="p-5 border rounded-xl border-gray-800 dark:border-gray-700 dark:bg-gray-700 ">
+                                            <span class=" text-white dark:text-white flex gap-4"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                                </svg>{{passname}} - {{passemail}}</span>
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    {{!-- <div class="flex justify-center mt-8">
+                        <button type="button" onclick="showDeleteModel('{{this._id}}')" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z"/>
+                            </svg>Delete
+                        </button>
+                    </div> --}}
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </section> 
+    <div id="deleteTicket" tabindex="-1"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button onclick="closeModel()" type="button"
+                    class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="popup-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+
+                <div class="p-4 md:p-5 text-center">
+                    {{!-- <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+                    </svg> --}}
+                    <div class="alert flex justify-center mb-5">
+                        <dotlottie-player src="https://lottie.host/ed471d90-efa6-4b28-87a6-a3a812de3856/sd2ULTYQrO.json" background="transparent" speed="1" style="width: 100px; height: 100px;" loop autoplay></dotlottie-player>                    </div>
+                        <h3 class="mb-5 text-lg font-normal text-white dark:text-white">Are you sure to Delete this Ticket ?
+                        </h3>
+                        <button id="popup-join-confirm" type="submit" data-modal-hide="popup-modal"
+                            onclick="deleteConfirmed()"
+                            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                            Yes, delete
+                        </button>
+                        <button id="popup-join-cancel" onclick="closeModel()" data-modal-hide="popup-modal" type="button"
+                            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No,
+                            cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="confirmdelete" tabindex="-1"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                {{!-- <button onclick="closeModel()" type="button"
+                    class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="popup-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button> --}}
+                <div class="p-4 md:p-5 text-center">
+                    {{!-- <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10"> --}}
+                        {{!-- <svg class="h-6 w-6 text-green-600" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg> --}}
+                        {{!-- <dotlottie-player src="https://lottie.host/74a57a3a-5940-422a-a095-f54a8375c0d8/7zGYlQ2hhP.json" background="transparent" speed="1" style="width: 200px; height: 200px;" loop autoplay></dotlottie-player> --}}
+                    {{!-- </div> --}}
+                    <div style="display: flex; justify-content:center; margin-bottom:1.5rem">
+                       <dotlottie-player src="https://lottie.host/b1287663-e0f7-49ba-b635-b61da73180e0/xUmEEik8Rg.json" background="transparent" speed="1" style="width: 100px; height: 100px;" loop autoplay></dotlottie-player>
+                    </div>
+                    <h3 class="mb-5 text-lg font-normal text-white dark:text-white">Ticket Deleted Successfully !!
+                    </h3>
+                    <button id="popup-join-cancel" onclick="gotomain()" data-modal-hide="popup-modal" type="button"
+                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+     {{>footer}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+</body>
+
+<script>
+    function deleteConfirmed(){
+            const passengerId = window.location.pathname.split('/').pop();
+            const delticketid = document.getElementById('deleteTicket').getAttribute('delete-ticket-id');
+            const data = { delticketid, passengerId };
+            console.log("passenger id: " + passengerId)
+            console.log("ticket id: " + delticketid);
+            closeModel();
+            showconfdelete();
+            fetch(`/yourtickets/${passengerId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then((response) =>{
+                console.log('Response Status:', response.status);
+                console.log('Response Headers:', response.headers);
+                return response.json();
+            })
+            .then((data) => {
+                // Handle the response from the server
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+    function showDeleteModel(delticketid){
+        console.log(delticketid)
+        document.getElementById('deleteTicket').style.display='flex';
+        document.getElementById('deleteTicket').setAttribute('delete-ticket-id', delticketid);
+    }
+    function gotomain(){
+        var currentURL = window.location.href;
+        var userID = currentURL.split('/').pop();
+        var newURL = '/main/' + userID;
+        window.history.replaceState({}, document.title, newURL);
+        // Redirect to the new URL
+        window.location.href = newURL;
+        closeModel();
+    }
+    function showconfdelete(){
+        document.getElementById('confirmdelete').style.display='flex'
+    }
+    function closeModel(){
+        document.getElementById('deleteTicket').style.display='none';
+        document.getElementById('confirmdelete').style.display='none';
+        document.getElementById('popup-modal').style.display = 'none';
+
+    }
+</script>
+</html>

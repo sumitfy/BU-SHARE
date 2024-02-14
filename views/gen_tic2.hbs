@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{!--
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"> --}}
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="shortcut icon" href="/static/images/favicon-BU.png" type="image/x-icon">
+  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+  <title>BU-Share</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      background-color: #111827;
+    }
+
+    .logo {
+      padding: 8px;
+      ;
+      max-height: 40%;
+      max-width: 40%;
+    }
+
+    .arrow {
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+  {{>navbar }}
+  <div class="parent-container">
+    <section class=" dark:bg-gray-900">
+      <div class="isolate px-6 py-24 sm:py-32 lg:px-8">
+        <div id="ticket" class="mx-auto max-w-2xl text-center">
+          <h2 class=" text-5xl font-light tracking-tight text-white sm:text-5xl">Generate Your Ticket</h2>
+        </div>
+
+        <form id="form" action="/ticketform/{{senddata._id}}" method="POST"
+          class=" bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-auto mt-16 max-w-xl sm:mt-20">
+          <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+            <div class="sm:col-span-2">
+              <label for="firstname" class="block text-sm font-semilight leading-6 text-white">
+                Name</label>
+              <div class="mt-2.5">
+                <label name="firstname" id="firstname"
+                  class="block w-full rounded-md border-0 px-3.5 py-2 bg-gray-600 text-white shadow-sm ring-2  ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  required>{{senddata.name}}</label>
+              </div>
+            </div>
+            {{!-- <div>
+              <label for="lastname" class="block text-sm font-semilight leading-6  text-white">Last
+                name</label>
+              <div class="mt-2.5">
+                <input type="text" name="lastname" id="lastname" autocomplete="family-name"
+                  class="block w-full rounded-md border-0 px-3.5 py-2 bg-gray-600 text-white shadow-sm ring-2  ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  required>
+              </div>
+            </div> --}}
+
+            <div class="sm:col-span-2">
+              <label for="category" class="block mb-2 text-sm font-semilight  text-white">Category</label>
+              <div class="mt-2.5">
+                <select id="category" name="category"
+                  class="block w-full rounded-md border-0 px-3.5 py-2 bg-gray-600 text-white shadow-sm ring-2  ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  requried>
+                  <option selected>Choose your Category</option>
+                  <option value="Faculty">Faculty</option>
+                  <option value="Student from 1st year">Student from 1st year</option>
+                  <option value="Student from 2nd year">Student from 2nd year</option>
+                  <option value="Student from 3rd year">Student from 3rd year</option>
+                  <option value="Student from 4th year">Student from 4th year</option>
+                  <option value="Student from 5th year">Student from 5th year</option>
+                  <option value="Employee">Employee</option>
+                  <option value="Others">Others</option>
+                </select>
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <label for="phone" class="block text-sm font-semilight leading-6 text-white">Contact
+                number</label>
+              <div class="relative mt-2.5">
+                <div class="absolute inset-y-0 left-0 flex items-center">
+                  <label for="country" class="sr-only">Country</label>
+                  <select id="country" name="country"
+                    class="h-full flex rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-0 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
+                    <option>IND</option>
+                  </select>
+                </div>
+                <input id="phone" name="phone" id="phone" autocomplete="tel"
+                  class="block w-full rounded-md border-0 px-3.5 py-2 pl-20 bg-gray-600 text-white shadow-sm ring-2  ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  required>
+              </div>
+            </div>
+
+            <div class="mt-2.5">
+              <div class="sm:col-span-2">
+                <label for="date" class="block mb-2 text-sm font-semilight  text-white">Departing Date</label>
+                <input type="date" name="date" id="date" min=""
+                  class="block w-full rounded-md border-0 px-3.5 py-2 pl-20 bg-gray-600 text-white shadow-sm ring-2  ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  required="true">
+              </div>
+            </div>
+
+            <div class="mt-2.5">
+              <label for="time" class="block mb-2 text-sm font-semilight  text-white">Departing Time</label>
+              <input type="time" id="time" name="time"
+                class="block w-full rounded-md border-0 px-3.5 py-2 pl-20 bg-gray-600 text-white shadow-sm ring-2  ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                step="60" required>
+            </div>
+
+
+            <div class="sm:col-span-2">
+              <label for="startingPoint" class="block text-sm font-semilight leading-6  text-white">Starting Point</label>
+              <div class="mt-2.5">
+                <input type="text" name="startingPoint" id="startingPoint"
+                  class="block w-full rounded-md border-0 px-3.5 py-2 bg-gray-600 text-white shadow-sm ring-2  ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  required>
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="destination" class="block text-sm font-semilight leading-6  text-white">Destination</label>
+              <div class="mt-2.5">
+                <input type="text" name="destination" id="destination" 
+                  class="block w-full rounded-md border-0 px-3.5 py-2 bg-gray-600 text-white shadow-sm ring-2  ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  required>
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="vacantSeats" class="block mb-2 text-sm font-semilight  text-white">Seats avaliable</label>
+              <div class="mt-2.5">
+                <select id="vacantSeats" name="vacantSeats"
+                  class="block w-full rounded-md border-0 px-3.5 py-2 bg-gray-600 text-white shadow-sm ring-2  ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  requried>
+                  <option selected>Vacant Seats</option>
+                  <option value=1>for 1 passanger</option>
+                  <option value=2>for 2 passengers</option>
+                  <option value=3>for 3 passengers</option>
+                  <option value=4>for 4 passengers</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="EnrollmentNo" class="block text-sm font-semilight leading-6  text-white">Enrollment
+                Number</label>
+              <div class="mt-2.5">
+                <input type="text" name="EnrollmentNo" id="EnrollmentNo" autocomplete="enroll"
+                  class="block w-full rounded-md border-0 px-3.5 py-2 bg-gray-600 text-white shadow-sm ring-2  ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  required>
+              </div>
+            </div>
+
+              <div class="sm:col-span-2">
+                <label for="meetingPoint" class="block text-sm font-semilight leading-6  text-white">Meeting
+                  point</label>
+                {{!-- <div class="mt-2.5">
+                  <select id="meetingPoint" name="meetingPoint"
+                    class="block w-full rounded-md border-0 px-3.5 py-2 bg-gray-600 text-white shadow-sm ring-2  ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    required>
+                    <option selected>Choose your meeting point</option>
+                    <option value="Bennett Circle">Bennett Circle</option>
+                    <option value="Between A & B block">Between A & B block</option>
+                    <option value="Between C & D block">Between C & D block</option>
+                    <option value="D block Lawn">D block Lawn</option>
+                    <option value="C block Lawn">C block Lawn</option>
+                    <option value="Main gate">Main Gate</option>
+                  </select>
+                </div> --}}
+                <div class="mt-2.5">
+                    <input type="text" name="meetingPoint" id="meetingPoint" autocomplete="place"
+                      class="block w-full rounded-md border-0 px-3.5 py-2 bg-gray-600 text-white shadow-sm ring-2  ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      required>
+                  </div>
+              </div>
+
+            {{!-- <div>
+              <div>
+                <label for="luggage" class="block text-sm font-semilight leading-6  text-white">luggage</label>
+                <div class="mt-2.5">
+                  <select id="luggage" name="luggage"
+                    class="block w-full rounded-md border-0 px-3.5 py-2 bg-gray-600 text-white shadow-sm ring-2  ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <option selected>you have luggage?</option>
+                    <option value="0">No</option>
+                    <option value="1">1 bag</option>
+                    <option value="2">2 bags</option>
+                    <option value="3">3 bags</option>
+                    <option value="4">4 bags</option>
+                  </select>
+                </div>
+              </div>
+            </div> --}}
+          </div>
+          <div class="mt-10">
+            <button onclick="toggleModal()" id="generate" type="button"
+              class="block w-full rounded-md bg-blue-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Generate</button>
+          </div>
+          <div id="modal" tabindex="-1"
+            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-md max-h-full">
+              <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button onclick="closeModel()" type="button"
+                  class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                  data-modal-hide="popup-modal">
+                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                  </svg>
+                  <span class="sr-only">Close modal</span>
+                </button>
+                <div class="p-4 md:p-5 text-center">
+                  <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
+                  <h3 class="mb-5 text-lg font-normal text-white dark:text-white">Are you sure you want to generate this
+                    ticket?</h3>
+                  <button type="submit" id="confirm" data-modal-hide="popup-modal" onclick="showCreated()"
+                    class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                    Yes, I'm sure
+                  </button>
+                  <button  onclick="closeModel()" data-modal-hide="popup-modal" type="button"
+                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No,
+                    cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div id="phonewrong" tabindex="-1"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button type="button" onclick="closeModel()"
+              class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              data-modal-hide="popup-modal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+            <div class="p-4 md:p-5 text-center">
+              <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              <h3 class="mb-5 text-lg font-normal text-white dark:text-white">Contact Number is wrong </h3>
+              <button type="button" onclick="closeModel()" data-modal-hide="popup-modal"
+                class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                Return Back
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="validatefields" tabindex="-1"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button type="button" onclick="closevalidateModel()"
+              class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              data-modal-hide="popup-modal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+            <div class="p-4 md:p-5 text-center">
+              <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              <h3 class="mb-5 text-lg font-normal text-white dark:text-white">Enter all the requried details !!! </h3>
+              <button type="button" onclick="closevalidateModel()" data-modal-hide="popup-modal"
+                class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                Return Back
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="ticketcreated" tabindex="-1"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                {{!-- <button onclick="closeModel()" type="button"
+                    class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="popup-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button> --}}
+                <div class="p-4 md:p-5 text-center">
+                    <div style="display: flex; justify-content:center; margin-bottom:1.5rem">
+                      <dotlottie-player src="https://lottie.host/2b4e6046-c38a-471e-b175-918df34f0a50/DPoPpxplDR.json" background="transparent" speed="1" style="width: 200px; height: 200px;" loop autoplay></dotlottie-player>
+                    </div>
+                    <h3 class="mb-5 text-lg font-normal text-white dark:text-white">Your Ticket is Created !!
+                    </h3>
+                    <button id="popup-join-cancel" onclick="gotoyourstkt()" data-modal-hide="popup-modal" type="button"
+                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    {{>footer}}
+    <script>
+      document.getElementById('date').min = new Date().toISOString().split('T')[0];
+      const phone = document.getElementById('phone').value.length;
+      function chackphone(){
+        if(phone < 10 || phone > 11){
+          document.getElementById('phonewrong').style.display = 'flex';
+        }
+      }
+      function toggleModal() {
+        //chackphone();
+        //if(phone < 10 || phone > 11){
+        //  document.getElementById('phonewrong').style.display = 'flex';
+        //}
+        if (document.getElementById('form').checkValidity()) {
+          document.getElementById('modal').style.display = 'flex';
+        } else {
+          document.getElementById('validatefields').style.display = 'flex';
+        }
+      }
+      function showCreated(){
+        location.reload();
+        document.getElementById('ticketcreated').style.display = 'flex';
+      }
+      function gotoyourstkt(){
+        var currentURL = window.location.href; 
+        var userID = currentURL.split('/').pop();
+        var newURL = '/yourtickets/' + userID;
+        // window.location.href = newURL;
+        window.history.replaceState({}, document.title, newURL);
+        // Redirect to the new URL
+        window.location.href = newURL;
+        closeModel();
+      }
+      function senddata() {
+        const id = document.getElementById()
+      }
+      function closeModel() {
+        document.getElementById('modal').style.display = 'none';
+        document.getElementById('ticketcreated').style.display = 'none';
+        document.getElementById('popup-modal').style.display = 'none';
+        document.getElementById('phonewrong').style.display = 'none';
+
+
+      }
+      function closevalidateModel() {
+        document.getElementById('validatefields').style.display = 'none';
+      }
+      function confirm(){
+        document.getElementById('confirm')
+      }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+</body>
+
+</html>

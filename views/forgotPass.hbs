@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+    <link rel="shortcut icon" href="/static/images/favicon-BU.png" type="image/x-icon">
+    <title>BU-Share</title>
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      background-color: #111827;
+    }
+
+    .parent-container {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .left {
+      padding: 20px;
+      min-width: 40%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 50%;
+      background-color: #111827;
+    }
+
+    .right {
+      flex: 50%;
+      background-color: #111827;
+    }
+
+    @media (max-width:880px) {
+      .parent-container {
+        display: grid;
+        grid-template-rows: 2fr, 8fr;
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+    {{!-- {{>navbar}} --}}
+    <div class="parent-container">
+        <div class="left">
+        {{!-- <img src="/static/images/undraw_travel_together_re_kjf2.svg" alt="taxi"> --}}
+        <div>
+            <img id="img1" class="w-auto h-30 mr-2" src="/static/images/logo.jpg" alt="logo">
+        </div>
+        </div>
+        <div class="right">
+            <section class="bg-black-50 dark:bg-gray-900">
+                <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+                <div
+                    class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                    <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <div style="display: flex; justify-content:center">
+                        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        Reset Your Password
+                        </h1>
+                    </div>
+                    <form id="forgotpass" class="space-y-4 md:space-y-6" action="/forgotpass" method="POST">
+                        <div>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                            email</label>
+                        <input type="email" name="email" id="email"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="name@company.com" required="">
+                        </div>
+                        <div class="flex justify-center">
+                            <button type="submit" style="border: 1px solid rgb(136, 136, 136); display: flex; justify-content:center ; align-items:center" onclick="sentmail()"
+                        class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">Get New Password</button>
+                        </div>
+                        <div style="display: flex; justify-content:center ; align-items:center" >
+                            <h1 class="text-sm font-semibold text-gray-500 dark:text-red-500">Please enter your email address. You will receive an email message with instructions on how to reset your password.</h1>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div id="sentmail" tabindex="-1"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                
+                <div class="p-4 md:p-5 text-center">
+                    <div style="display: flex; justify-content:center; margin-bottom:1.5rem">
+                        <dotlottie-player src="https://lottie.host/2b4e6046-c38a-471e-b175-918df34f0a50/DPoPpxplDR.json" background="transparent" speed="1" style="width: 100px; height: 100px;" loop autoplay></dotlottie-player>
+                    </div>
+                    <h3 class="mb-5 text-xl font-normal text-white dark:text-white">We have Sent you a Mail. Check Your Inbox !!!
+                    </h3>
+                    <button id="popup-join-cancel" onclick="openEmailInbox()" data-modal-hide="popup-modal" type="button"
+                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Go To Mail</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{!-- {{>footer}} --}}
+    <script>
+      function openEmailInbox() {
+        const emailServiceURL = 'https://mail.google.com';
+        window.open(emailServiceURL, '_blank');
+      }
+      function sentmail(){
+        document.getElementById('sentmail').style.display = 'flex';
+      }
+    </script>
+</body>
+</html>
